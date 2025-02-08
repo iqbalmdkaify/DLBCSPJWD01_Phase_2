@@ -3,8 +3,8 @@ import aboutMe from '../src/assets/images/about-me.jpg';
 const AboutPage = () => {
   return (
     <section className='bg-transparent text-dark'>
-      <div className='md:px-[25%] flex flex-col md:gap-12'>
-        <p className="font-medium md:text-5xl">Passionate to travel</p>
+      <div className='md:px-[25%] flex flex-col lg:gap-12'>
+        <p className="font-medium lg:text-5xl">Passionate to travel</p>
         <p className="text-base font-light">
           Passionate about creativity and innovation, I thrive on exploring new ideas and bringing them to life. Whether it's through design, writing, or problem-solving, I enjoy the challenge of crafting something meaningful. Every project I take on is an opportunity to learn, improve, and push boundaries.
           <br></br>
@@ -18,7 +18,7 @@ const AboutPage = () => {
       </div>
 
       {/* About Us image container */}
-      <div className="md:mt-[7rem] lg:px-[12rem] xl:px-[14rem]">
+      <div className="lg:mt-[7rem] lg:px-[12rem] xl:px-[14rem]">
         <img src={aboutMe} alt="about us image" className='md:h-[600px] w-full object-cover' />
       </div>
     </section>
