@@ -52,8 +52,8 @@ const HomePage = () => {
     <section className='bg-transparent'>
       <Masonry
         breakpointCols={breakpoints}
-        className="flex w-full md:gap-16 transition-all duration-300 ease-in-out"
-        columnClassName="flex flex-col md:gap-16 transition-transform duration-300 ease-in-out"
+        className="flex w-full md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-all duration-300 ease-in-out"
+        columnClassName="flex flex-col md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-transform duration-300 ease-in-out"
       >
         {dummyData.map((item, idx) => (
           <BlogCard

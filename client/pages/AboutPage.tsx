@@ -18,7 +18,7 @@ const AboutPage = () => {
       </div>
 
       {/* About Us image container */}
-      <div className="md:mt-[7rem] md:px-[12rem]">
+      <div className="md:mt-[7rem] lg:px-[12rem] xl:px-[14rem]">
         <img src={aboutMe} alt="about us image" className='md:h-[600px] w-full object-cover' />
       </div>
     </section>
