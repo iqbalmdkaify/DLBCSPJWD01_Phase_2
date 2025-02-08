@@ -51,4 +51,4 @@ const BlogCard = ({ image, heading, author, createdAt }: BlogCardProps) => {
   )
 }
 
-export default BlogCard
+export default BlogCard;
