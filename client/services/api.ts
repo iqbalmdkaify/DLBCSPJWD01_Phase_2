@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Blog, BlogFormSubmitData, SubmitResponse, UserLoginData, UserRegisterData } from '../types/Global';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 const BASE_URL = import.meta.env.VITE_ROOT_API;
 
 const fetchData = async <T>(url: string, options?: AxiosRequestConfig): Promise<T> => {

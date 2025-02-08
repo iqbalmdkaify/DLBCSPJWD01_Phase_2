@@ -1,6 +1,8 @@
 import Masonry from 'react-masonry-css';
 import HeroImage from '../src/assets/images/hero-image.jpg';
 import BlogCard from '../src/components/common/BlogCard';
+import { useLoaderData } from 'react-router-dom';
+import { Blog } from '../types/Global';
 
 const HomePage = () => {
   const breakpoints = {
@@ -8,9 +10,10 @@ const HomePage = () => {
     1100: 2,    // For screens <= 1100px
     768: 1      // For screens <= 768px
   };
-
+  const data: Blog[] = useLoaderData() as Blog[];
+  console.log(data);
   return (
-    <section className='hidden hero-container'>
+    <section className='hero-container'>
 
       {/* Hero Image */}
       <div className="hero-image-container">
@@ -31,9 +34,9 @@ const HomePage = () => {
             className="masonry-grid"
             columnClassName="masonry-grid-column"
           >
-            <BlogCard heading='Testing a new title' snippet='Officia officia ex cupidatat ipsum laborum aliquip nulla est reprehenderit magna.' author='iqbalmdkaify' likesCount={0} />
-            <BlogCard heading='Enim aute id velit ipsum laborum in nostrud duis velit veniam id.' snippet='Officia officia ex cupidatat ipsum laborum aliquip nulla est reprehenderit magna.' author='iqbalmdkaify' likesCount={0} />
-            <BlogCard heading='Enim aute id velit ipsum laborum in nostrud duis velit veniam id.' snippet='Officia officia ex cupidatat ipsum laborum aliquip nulla est reprehenderit magna.' author='iqbalmdkaify' likesCount={0} />
+            {data.map((item, idx) => (
+              <BlogCard key={idx} heading={item.title} snippet={item.content} author='iqbalmdkaify' likesCount={0} />
+            ))}
           </Masonry>
         </div>
       </div>

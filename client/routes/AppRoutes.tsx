@@ -1,8 +1,10 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // import { loginAction, registerAction, submitBlogAction } from '../services/actions';
+import { getBlogs } from '../services/api';
 import { HomePage, AboutPage, LoginPage, NotFoundPage, BlogPage, CreateBlogPage } from '../pages/main';
 import Layout from '../src/components/layout/Layout';
+import { Blog } from '../types/Global';
 
 const router = createBrowserRouter([
   {
@@ -12,7 +14,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-        // loader: blogLoader,
+        loader: blogLoader,
       },
       {
         path: 'about',
@@ -50,3 +52,10 @@ const AppRoutes: React.FC = () => <RouterProvider router={router} />;
 
 
 export default AppRoutes
+
+// Loader functions
+async function blogLoader(): Promise<Blog[]> {
+  const response = await getBlogs();
+  console.log(response)
+  return response;
+}
