@@ -1,16 +1,17 @@
-type TButtonProps = {
+type ButtonProps = {
   text: string;
-  type: "Primary" | "Secondary";
-  customStyle: string;
   action?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button = ({ text, type, customStyle, action }: TButtonProps) => {
+const Button = ({ text, action }: ButtonProps) => {
 
+  // TODO: Add spinner when onClick event is triggerred
   return <button
-    className={`text-navLink leading-navLink tracking-navLink ${customStyle} ${type == "Primary" ? '' : '_btn-secondary'}`}
+    className="bg-dark text-white md:py-5 md:px-8 text-base font-medium hover:opacity-80"
     onClick={action}
-  >{text}</button>
+  >
+    {text}
+  </button>
 };
 
 export default Button;
