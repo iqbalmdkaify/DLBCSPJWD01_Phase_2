@@ -2,6 +2,8 @@
 // import { useNavigate } from 'react-router-dom';
 
 import { NavLink } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 
 type BlogCardProps = {
   // image?: { contentType: string; data: string };
@@ -13,6 +15,11 @@ type BlogCardProps = {
 }
 
 const BlogCard = ({ image, heading, author, createdAt }: BlogCardProps) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   // const navigate = useNavigate();
 
   // const openBlog = () => {
@@ -20,7 +27,11 @@ const BlogCard = ({ image, heading, author, createdAt }: BlogCardProps) => {
   // };
 
   return (
-    <div className='bg-transparent flex flex-col md:gap-6 text-dark' >
+    <motion.div ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className='bg-transparent flex flex-col md:gap-6 text-dark' >
 
       {/* Image container */}
       <div>
@@ -36,7 +47,7 @@ const BlogCard = ({ image, heading, author, createdAt }: BlogCardProps) => {
 
         <NavLink to="/" className="text-sm border-b-[1px] border-dark">Read more</NavLink>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
