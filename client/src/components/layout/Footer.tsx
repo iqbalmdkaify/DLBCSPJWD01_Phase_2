@@ -1,25 +1,21 @@
-import Button from '../common/Button'
+import Button from "../common/Button"
 
 const Footer = () => {
   return (
-    <footer className='footer-container'>
-      <div className="contact-container">
-        <p className="footer-heading">Contact us to get assistance</p>
-        <form className="contact-form">
-          <div>
-            <p>Enter your email here *</p>
-            {/* <input type="email" name="email" onChange={handleChange} value={formData.email} /> */}
-            <input type="email" name="email" />
-          </div>
-          <div>
-            <p>Message</p>
-            {/* <textarea name="message" onChange={handleChange} value={formData.message}></textarea> */}
-            <textarea name="message" ></textarea>
-          </div>
-          {/* <Button text="Send" type="Secondary" action={handleSubmit} /> */}
-          <Button text="Send" type="Secondary" />
+    <footer className='bg-transparent md:py-16 flex flex-col md:gap-[4.5rem] items-center text-dark text-base'>
+      {/* Form section */}
+      <div className="flex flex-col md:gap-3 items-center">
+        <p className="font-bold">Do you have an insatiable desire to explore the world?</p>
+        <p className="font-light">Sign up to receive news and updates.</p>
+
+        <form className="flex items-center md:gap-3 md:mt-10">
+          <input type="email" placeholder="E-mail address" className="md:px-9 md:py-[1.20rem] outline outline-[1px] outline-[#0000001f]" />
+          <Button text="Register" />
         </form>
-        <p className="footer-link">&copy; 2024 by Blogify. Powered and secured by Node and Express. Designed by <a href="https://github.com/iqbalmdkaify" className="footer-git-link" target="_blank" rel="noopener noreferrer">@iqbalmdkaify</a></p>
+      </div>
+      {/* Copyrights */}
+      <div>
+        <p className="font-light">&copy; 2025 by Blogify. Powered and secured by Node and Express. Designed by <a href="https://github.com/iqbalmdkaify" className="underline" target="_blank" rel="noopener noreferrer">@iqbalmdkaify</a></p>
       </div>
     </footer >
   )
