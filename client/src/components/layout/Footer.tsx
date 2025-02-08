@@ -9,7 +9,7 @@ const Footer = () => {
         <p className="font-light">Sign up to receive news and updates.</p>
 
         <form className="flex items-center md:gap-3 md:mt-10">
-          <input type="email" placeholder="E-mail address" className="md:px-9 md:py-[1.20rem] outline outline-[1px] outline-[#0000001f]" />
+          <input type="email" placeholder="E-mail address" className="md:px-9 md:py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
           <Button text="Register" />
         </form>
       </div>
