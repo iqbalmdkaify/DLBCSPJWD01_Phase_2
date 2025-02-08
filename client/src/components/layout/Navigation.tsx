@@ -4,8 +4,8 @@ const Navigation = () => {
 
   return (
     <header>
-      <nav className="bg-transparent md:flex items-center justify-between md:py-16">
-        <p className="font-medium text-4xl">Blogify</p>
+      <nav className="bg-transparent md:flex items-center justify-between py-8 lg:py-16">
+        <p className="font-medium text-2xl lg:text-4xl">Blogify</p>
         <div className="md:flex items-center gap-5 text-base font-light text-dark">
 
           {/* TODO: Username if authenticated */}

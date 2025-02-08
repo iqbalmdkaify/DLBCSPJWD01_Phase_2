@@ -4,10 +4,10 @@ import Footer from './Footer'
 
 const Layout = () => {
   return (
-    <div className='md:px-10 lg:px-16 xl:px-[4.8rem] bg-light min-h-screen flex flex-col'>
+    <div className='px-6 md:px-10 lg:px-16 xl:px-[4.8rem] bg-light min-h-screen flex flex-col'>
       <Navigation />
 
-      <main className='md:my-12 flex-grow'>
+      <main className='py-6 lg:my-12 flex-grow'>
         <Outlet />
       </main>
 

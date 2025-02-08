@@ -55,17 +55,17 @@ const CreateBlogPage = () => {
 
   return (
     <div className='bg-transparent md:px-[23%] text-dark'>
-      <p className='text-4xl font-medium'>Got something to share? Let’s Bring It to Life!</p>
-      <form className='flex flex-col md:gap-8 md:mt-[4rem]'>
+      <p className='text-3xl lg:text-4xl font-medium'>Got something to share? Let’s Bring It to Life!</p>
+      <form className='flex flex-col gap-4 lg:gap-8 mt-8 lg:mt-[4rem]'>
         <div>
           <p className='text-base'>Blog Title *</p>
           {/* <input type="text" name="title" onChange={handleChange} value={formData.title} /> */}
-          <input type="text" name="title" className="md:mt-2 md:px-9 md:py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark w-full" />
+          <input type="text" name="title" className="mt-1 md:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark w-full" />
         </div>
         <div>
           <p className='text-base'>Blog Content *</p>
           {/* <textarea name="content" onChange={handleChange} value={formData.content} />*/}
-          <textarea name="content" className='w-full md:px-9 md:py-[1.20rem] md:mt-2 outline-offset-2 focus:outline outline-[2px] outline-dark' />
+          <textarea name="content" className='w-full md:px-9 py-[1.20rem] mt-1 md:mt-2 outline-offset-2 focus:outline outline-[2px] outline-dark' />
         </div>
         <div>
           <input

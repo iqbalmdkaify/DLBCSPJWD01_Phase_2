@@ -22,7 +22,7 @@ const HomePage = () => {
   // console.log(data);
   const dummyData = [
     {
-      heading: "Mastering Tailwind CSS for Modern UI",
+      heading: "Mastering Tailwind CSS",
       info: { author: "John Doe", createdAt: "2024-02-05" },
       image: bg1,
     },
@@ -53,7 +53,7 @@ const HomePage = () => {
       <Masonry
         breakpointCols={breakpoints}
         className="flex w-full md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-all duration-300 ease-in-out"
-        columnClassName="flex flex-col md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-transform duration-300 ease-in-out"
+        columnClassName="flex flex-col gap-4 md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-transform duration-300 ease-in-out"
       >
         {dummyData.map((item, idx) => (
           <BlogCard
@@ -66,8 +66,8 @@ const HomePage = () => {
         ))}
       </Masonry>
 
-      <div className='md:mt-[8rem]'>
-        <img src={gridImage} alt="masonry blog image" className='md:h-[500px] md:w-full object-cover' />
+      <div className='mt-[2rem] lg:mt-[8rem]'>
+        <img src={gridImage} alt="masonry blog image" className='h-[400px] lg:h-[500px] w-full object-cover' />
       </div>
     </section>
   )
