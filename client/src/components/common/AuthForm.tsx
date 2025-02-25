@@ -118,12 +118,12 @@ const AuthForm = ({ buttonText }: TAuthFormProps) => {
   // };
 
   return (
-    <form className="auth-form">
+    <form className="flex flex-col gap-8 lg:gap-4 mt-8 lg:mt-10 min-w-full px-8 md:min-w-[500px] lg:min-w-[500px]">
       <div>
         <p>Enter your email here *</p>
         {/* {errorState.emailError && <ErrorComponent message={errorState.emailError} type="Warning" />} */}
         {/* <input type="email" name="email" onChange={handleChange} value={credentials.email} /> */}
-        <input type="email" name="email" />
+        <input type="email" name="email" className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
       </div>
       {/* {buttonText === "Register" && (
           <div>
@@ -137,17 +137,17 @@ const AuthForm = ({ buttonText }: TAuthFormProps) => {
           <p>Enter your username here *</p>
           {/* {errorState.usernameError && <ErrorComponent message={errorState.usernameError} type="Warning" />} */}
           {/* <input type="text" name="username" onChange={handleChange} value={credentials.username} /> */}
-          <input type="text" name="username" />
+          <input type="text" name="username" className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
         </div>
       )}
       <div>
         <p>Enter your password here *</p>
         {/* {errorState.passwordError && <ErrorComponent message={errorState.passwordError} type="Warning" />} */}
         {/* <input type="password" name="password" onChange={handleChange} value={credentials.password} /> */}
-        <input type="password" name="password" />
+        <input type="password" name="password" className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
       </div>
       {/* <Button text={buttonText} type="Secondary" action={handleSubmit} /> */}
-      <Button text={buttonText} type="Secondary" />
+      <Button text={buttonText} />
     </form>
   );
 };

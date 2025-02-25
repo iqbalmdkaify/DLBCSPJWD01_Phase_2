@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // import { loginAction, registerAction, submitBlogAction } from '../services/actions';
 import { getBlogs } from '../services/api';
-import { HomePage, AboutPage, LoginPage, NotFoundPage, BlogPage, CreateBlogPage } from '../pages/main';
+import { HomePage, AboutPage, LoginPage, NotFoundPage, BlogPage, CreateBlogPage, RegisterPage } from '../pages/main';
 import Layout from '../src/components/layout/Layout';
 import { Blog } from '../types/Global';
 
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-        loader: blogLoader,
+        // loader: blogLoader,
       },
       {
         path: 'about',
@@ -25,23 +26,28 @@ const router = createBrowserRouter([
         element: <CreateBlogPage />,
         // action: submitBlogAction,
       },
+      {
+        path: '/blogs/:id',
+        element: <BlogPage />,
+        // loader: blogByIdLoader,
+      },
     ]
   },
   {
-    path: '/blogs/:id',
-    element: <BlogPage />,
-    // loader: blogByIdLoader,
+    path: '/auth',
+    children: [
+      {
+        path: 'login',
+        element: <LoginPage />,
+        // action: loginAction,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
+        // action: registerAction,
+      },
+    ]
   },
-  {
-    path: '/login',
-    element: <LoginPage />,
-    // action: loginAction,
-  },
-  // {
-  //   path: '/register',
-  //   element: <RegisterPage />,
-  //   action: registerAction,
-  // },
   {
     path: '*',
     element: <NotFoundPage />

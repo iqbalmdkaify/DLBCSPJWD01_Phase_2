@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import AuthForm from "../src/components/common/AuthForm"
 // import { TCredential } from '../../types/Credential';
 // import { useAuth } from "../../context/AuthProvider";
@@ -16,11 +17,11 @@ const LoginPage = () => {
   // }
   // TODO: Implement the login function (option: use axios)
   return (
-    <div className="auth-container">
-      <p className="auth-title">Login</p>
+    <div className="min-h-screen bg-light flex flex-col items-center justify-center text-dark">
+      <p className="font-medium lg:font-semibold text-4xl lg:text-5xl">Login</p>
       {/* <AuthForm buttonText="Login" action={handleLogin} initCredential={initLogin} /> */}
       <AuthForm buttonText="Login" />
-      <p>Don't have an account yet? <Link to="/register" className="form-link">Register</Link> here</p>
+      <p className="text-sm font-light mt-4 lg:mt-10">Don't have an account yet? <Link to="/auth/register" className="underline">Register</Link> here</p>
     </div>
   )
 }
