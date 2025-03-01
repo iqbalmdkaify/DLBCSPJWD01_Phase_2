@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Blog, BlogFormSubmitData, BlogImage, SubmitResponse, UserLoginData, UserRegisterData } from '../types/Global';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 const BASE_URL = import.meta.env.VITE_ROOT_API;
 
 export type BlogResponseType = {
@@ -46,13 +45,7 @@ const getBlogs = async (): Promise<BlogResponseType[]> => {
   const res = await fetchData<Blog[]>('/blogs', {
     withCredentials: true,
   });
-  /**
-   * {
-      heading: "Mastering Tailwind CSS",
-      info: { author: "John Doe", createdAt: "2024-02-05" },
-      image: bg1,
-    },
-   */
+
   const modifiedResponse = res.map((data) => {
     return {
       id: data._id,
