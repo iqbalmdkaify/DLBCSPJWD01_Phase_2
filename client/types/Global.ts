@@ -10,7 +10,6 @@ interface Blog {
   title: string;
   content: string;
   blogImage: BlogImage[];
-  likesCount: number;
   author: string;
   createdAt: string;
   updatedAt: string;
