@@ -3,7 +3,6 @@ const { verifyCallback } = require("../utils/verify");
 
 const isAuth = (req, res, next) => {
 	const token = req.cookies.jwt;
-
 	if (token) {
 		verifyCallback(token, async (err, decodedToken) => {
 			if (err) {
@@ -42,5 +41,4 @@ const isAuth = (req, res, next) => {
 
 module.exports = {
 	isAuth,
-	// getCurrentUser,
 };
