@@ -1,5 +1,3 @@
-import React from 'react'
-
 type TErrorComponentProps = {
   message: string;
   type: "Error" | "Warning" | "Success" | "Info";
@@ -19,8 +17,8 @@ const ErrorComponent = ({ message, type }: TErrorComponentProps) => {
     }
   }
   return (
-    <div className='error-component' style={{ color: getColor(type) }}>
-      <p>{message}</p>
+    <div className='block' style={{ color: getColor(type) }}>
+      <p className="text-xs">{message}</p>
     </div>
   )
 }

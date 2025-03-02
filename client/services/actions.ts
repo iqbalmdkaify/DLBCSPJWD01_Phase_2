@@ -4,7 +4,7 @@ import { BlogFormSubmitData } from "../types/Global";
 
 const loginAction: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-
+  console.log(formData)
   const loginData = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
@@ -52,7 +52,6 @@ const submitBlogAction: ActionFunction = async ({ request }) => {
     title: formData.get("title") as string,
     content: formData.get("content") as string,
     blogImage: JSON.parse(formData.get('blogImage') as string),
-    likesCount: Number(formData.get('likesCount') || 0), // Default to 0
     author: formData.get('author') as string,
   };
 

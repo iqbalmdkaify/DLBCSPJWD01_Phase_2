@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-// import { loginAction, registerAction, submitBlogAction } from '../services/actions';
-import { BlogResponseType, getBlogs } from '../services/api';
+import { createBrowserRouter, LoaderFunctionArgs, RouterProvider } from 'react-router-dom'
+import { loginAction, registerAction, submitBlogAction } from '../services/actions';
+import { BlogResponseType, getBlogs, getBlogsById } from '../services/api';
 import { HomePage, AboutPage, LoginPage, NotFoundPage, BlogPage, CreateBlogPage, RegisterPage } from '../pages/main';
 import Layout from '../src/components/layout/Layout';
+import ProtectedRoute from './ProtectedRoute';
+import AuthProvider from '../context/AuthProvider';
+import { Blog } from '../types/Global';
 
 const router = createBrowserRouter([
   {
@@ -28,17 +31,18 @@ const router = createBrowserRouter([
       {
         path: '/blogs/:id',
         element: <BlogPage />,
-        // loader: blogByIdLoader,
+        loader: blogByIdLoader,
       },
     ]
   },
   {
     path: '/auth',
+    element: <ProtectedRoute />,
     children: [
       {
         path: 'login',
         element: <LoginPage />,
-        // action: loginAction,
+        action: loginAction,
       },
       {
         path: 'register',
@@ -53,7 +57,11 @@ const router = createBrowserRouter([
   }
 ])
 
-const AppRoutes: React.FC = () => <RouterProvider router={router} />;
+const AppRoutes: React.FC = () => (
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
+);
 
 
 export default AppRoutes
@@ -61,6 +69,17 @@ export default AppRoutes
 // Loader functions
 async function blogLoader(): Promise<BlogResponseType[]> {
   const response = await getBlogs();
+  console.log(response)
+  return response;
+}
+
+async function blogByIdLoader({ params }: LoaderFunctionArgs): Promise<Blog> {
+  const blogId = params.id;
+  if (!blogId) {
+    throw new Response("Blog ID is required", { status: 400 }); // Throw a 400 error if the ID is missing
+  }
+
+  const response = await getBlogsById(blogId);
   console.log(response)
   return response;
 }
