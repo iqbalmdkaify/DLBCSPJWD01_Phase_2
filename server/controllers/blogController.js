@@ -10,9 +10,10 @@ const getAllBlogs = async (req, res) => {
 };
 
 const createBlog = async (req, res) => {
+	console.log(req.body);
 	const { title, content, author } = req.body;
 	const image = req.file;
-
+	console.log(image);
 	const blog = await BlogModel({
 		title,
 		content,
@@ -22,8 +23,6 @@ const createBlog = async (req, res) => {
 			contentType: image.mimetype,
 			data: image.buffer,
 		},
-		// DEBUG: Likes count is added statically
-		likes: 0,
 	});
 	try {
 		await blog.save();

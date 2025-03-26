@@ -10,6 +10,6 @@ const upload = multer({ storage: storage });
 
 const blogRoutes = express.Router();
 
-blogRoutes.post("/create-blog", upload.single("image"), isAuth, createBlog);
+blogRoutes.post("/create-blog", upload.single("blogImage"), isAuth, createBlog);
 
 module.exports = blogRoutes;
