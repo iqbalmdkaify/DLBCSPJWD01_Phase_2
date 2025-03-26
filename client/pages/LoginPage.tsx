@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import AuthForm, { Credential } from "../src/components/common/AuthForm"
-import { Link, useNavigate, useSubmit } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
 
 const initLogin = {
   email: '',
@@ -8,16 +8,12 @@ const initLogin = {
 }
 
 const LoginPage = () => {
-  const submit = useSubmit();
-
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const handleLogin = async (data: Credential) => {
-    const formData = new FormData();
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-
-    submit(formData);
+    await login(data, () => navigate('/'));
   }
-  // TODO: Implement the login function (option: use axios)
+
   return (
     <div className="min-h-screen bg-light flex flex-col items-center justify-center text-dark">
       <p className="font-medium lg:font-semibold text-4xl lg:text-5xl">Login</p>

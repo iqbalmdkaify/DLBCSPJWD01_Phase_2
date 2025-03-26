@@ -21,9 +21,15 @@ interface SubmitResponse {
   message: string;
 }
 
-type BlogFormData = Omit<Blog, '__v' | 'updatedAt' | 'createdAt' | '_id' | 'likesCount' | 'author'>
+type BlogFormData = {
+  title: string;
+  content: string;
+  blogImage: File | null;
+}
 
-type BlogFormSubmitData = Omit<Blog, '__v' | 'updatedAt' | 'createdAt' | '_id'>
+type BlogFormSubmitData = BlogFormData & {
+  author: string | null;
+}
 
 interface ContactFormData {
   email: string;

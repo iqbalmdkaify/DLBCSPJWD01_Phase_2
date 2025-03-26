@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const NotFoundPage = () => {
   const location = useLocation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error404, setError404] = useState<string | null>(null);
 
   const visitedpath = location.pathname.slice(1,);

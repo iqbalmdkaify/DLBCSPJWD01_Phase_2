@@ -1,33 +1,34 @@
-import React, { useContext, createContext, PropsWithChildren } from 'react'
-import { ISubmitFormData } from '../src/pages/CreateBlogPage';
+import { useContext, createContext, PropsWithChildren } from 'react'
+import { BlogResponseType, fetchData } from '../services/api';
+import { Blog, BlogFormSubmitData } from '../types/Global';
 import axios from 'axios';
 
-export interface IBlogImage {
-  _id: string;
-  contentType: string;
-  filename: string;
-  data: string;
+// export interface IBlogImage {
+//   _id: string;
+//   contentType: string;
+//   filename: string;
+//   data: string;
+// }
+
+// export interface IBlogData {
+//   _id: string;
+//   title: string;
+//   content: string;
+//   blogImage: IBlogImage[];
+//   likes: number;
+//   author: string;
+//   createdAt: string;
+//   updatedAt: string;
+//   __v: number;
+// }
+
+type BlogContext = {
+  getBlogs: () => Promise<BlogResponseType[] | []>;
+  getBlogsById: (id: string) => Promise<Blog>;
+  submitBlogData: (blogData: BlogFormSubmitData) => void;
 }
 
-export interface IBlogData {
-  _id: string;
-  title: string;
-  content: string;
-  blogImage: IBlogImage[];
-  likes: number;
-  author: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
-
-type TBlogContextType = {
-  getBlogs: () => Promise<IBlogData[] | []>;
-  getBlog: (id: string) => Promise<IBlogData | []>;
-  submitBlogData: (blogData: ISubmitFormData) => Promise<void>;
-}
-
-const BlogDataContext = createContext<TBlogContextType | null>(null);
+const BlogDataContext = createContext<BlogContext | null>(null);
 
 export const useBlogData = () => {
   const blogDataContext = useContext(BlogDataContext);
@@ -41,72 +42,52 @@ export const useBlogData = () => {
 
 const BlogDataProvider = ({ children }: PropsWithChildren) => {
 
-  const getBlogs = async () => {
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_ROOT_API}blogs`, {
-        withCredentials: false,
-      });
+  const getBlogs = async (): Promise<BlogResponseType[]> => {
+    const res = await fetchData<Blog[]>('/blogs', {
+      withCredentials: false,
+    });
 
-      if (response.status === 200) {
-        const blogs = response.data;
-        console.log(blogs);
-        return blogs;
-      } else {
-        console.log('Failed to fetch blogs');
-        return [];
+    const modifiedResponse = res.map((data) => {
+      return {
+        id: data._id,
+        heading: data.title,
+        info: {
+          author: data.author,
+          createdAt: data.createdAt
+        },
+        image: data.blogImage
       }
-    } catch (err) {
-      console.error('Error fetching blogs:', err);
-      return [];
-    }
+    })
+
+    return modifiedResponse
+  };
+
+  const getBlogsById = async (id: string): Promise<Blog> => {
+    return await fetchData<Blog>(`/blogs/${id}`, {
+      withCredentials: true,
+    });
   }
 
-  const getBlog = async (id: string) => {
-
+  const submitBlogData = async (blogData: BlogFormSubmitData) => {
     try {
-      const response = await axios({
-        method: 'GET',
-        url: `${import.meta.env.VITE_ROOT_API}blogs/:${id}`,
-        withCredentials: true,
-      });
-
-      if (response.status === 200) {
-        const blog = await response.data;
-        return blog;
-      } else {
-        console.log('Failed to fetch blog');
-        return [];
-      }
-    } catch (err) {
-      console.log(err);
-      return [];
-    }
-  }
-
-  const submitBlogData = async (submitFormData: ISubmitFormData) => {
-
-    try {
-      const response = await axios({
+      const res = await fetchData<Blog>('/create-blog', {
         method: 'POST',
+        data: blogData,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        url: `${import.meta.env.VITE_ROOT_API}create-blog`,
         withCredentials: true,
-        data: submitFormData,
       });
 
-      if (response.status === 201) {
-        const blog = await response.data;
-        console.log(blog);
-      }
+      console.log(res)
+
     } catch (err) {
-      console.log(err);
+      throw new Error(`Error occured: ${err}`);
     }
-  }
+  };
 
   return (
-    <BlogDataContext.Provider value={{ getBlogs, getBlog, submitBlogData }}>
+    <BlogDataContext.Provider value={{ getBlogs, getBlogsById, submitBlogData }}>
       {children}
     </BlogDataContext.Provider>
   )

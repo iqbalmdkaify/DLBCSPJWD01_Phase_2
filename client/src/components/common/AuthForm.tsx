@@ -41,13 +41,13 @@ const errorReducer = (state: ErrorStateType, action: ErrorActionType): ErrorStat
   }
 };
 
-type TAuthFormProps = {
+type AuthFormProps = {
   buttonText: "Login" | "Register";
   action: (data: Credential) => void;
   initCredential: Credential;
 };
 
-const AuthForm = ({ buttonText, action, initCredential }: TAuthFormProps) => {
+const AuthForm = ({ buttonText, action, initCredential }: AuthFormProps) => {
   const [credentials, setCredentials] = useState<Credential>(initCredential);
   const [errorState, dispatch] = useReducer(errorReducer, initialErrorState);
 
@@ -122,7 +122,6 @@ const AuthForm = ({ buttonText, action, initCredential }: TAuthFormProps) => {
         <p>Enter your email here *</p>
         {errorState.emailError && <ErrorComponent message={errorState.emailError} type="Warning" />}
         <input type="email" name="email" onChange={handleChange} value={credentials.email} className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
-        {/* <input type="email" name="email" className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" /> */}
       </div>
       {buttonText === "Register" && (
         <div>
@@ -136,14 +135,12 @@ const AuthForm = ({ buttonText, action, initCredential }: TAuthFormProps) => {
           <p>Enter your username here *</p>
           {errorState.usernameError && <ErrorComponent message={errorState.usernameError} type="Warning" />}
           <input type="text" name="username" onChange={handleChange} value={credentials.username} className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
-          {/* <input type="text" name="username" className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" /> */}
         </div>
       )}
       <div>
         <p>Enter your password here *</p>
         {errorState.passwordError && <ErrorComponent message={errorState.passwordError} type="Warning" />}
         <input type="password" name="password" onChange={handleChange} value={credentials.password} className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
-        {/* <input type="password" name="password" className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" /> */}
       </div>
       <Button text={buttonText} action={handleSubmit} />
       {/* <Button text={buttonText} /> */}

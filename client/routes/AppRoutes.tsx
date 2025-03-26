@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { createBrowserRouter, LoaderFunctionArgs, RouterProvider } from 'react-router-dom'
-import { loginAction, registerAction, submitBlogAction } from '../services/actions';
+import { createBrowserRouter, defer, LoaderFunctionArgs, RouterProvider } from 'react-router-dom'
 import { BlogResponseType, getBlogs, getBlogsById } from '../services/api';
 import { HomePage, AboutPage, LoginPage, NotFoundPage, BlogPage, CreateBlogPage, RegisterPage } from '../pages/main';
 import Layout from '../src/components/layout/Layout';
 import ProtectedRoute from './ProtectedRoute';
 import AuthProvider from '../context/AuthProvider';
 import { Blog } from '../types/Global';
+import BlogDataProvider from '../Provider/BlogDataProvider';
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-        loader: blogLoader,
       },
       {
         path: 'about',
@@ -26,12 +25,10 @@ const router = createBrowserRouter([
       {
         path: 'create-blog',
         element: <CreateBlogPage />,
-        // action: submitBlogAction,
       },
       {
         path: '/blogs/:id',
         element: <BlogPage />,
-        loader: blogByIdLoader,
       },
     ]
   },
@@ -42,12 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
-        action: loginAction,
       },
       {
         path: 'register',
         element: <RegisterPage />,
-        // action: registerAction,
       },
     ]
   },
@@ -59,7 +54,9 @@ const router = createBrowserRouter([
 
 const AppRoutes: React.FC = () => (
   <AuthProvider>
-    <RouterProvider router={router} />
+    <BlogDataProvider>
+      <RouterProvider router={router} />
+    </BlogDataProvider>
   </AuthProvider>
 );
 
@@ -67,16 +64,15 @@ const AppRoutes: React.FC = () => (
 export default AppRoutes
 
 // Loader functions
-async function blogLoader(): Promise<BlogResponseType[]> {
-  const response = await getBlogs();
-  console.log(response)
-  return response;
+async function blogLoader() {
+  const responsePromise = getBlogs()
+  return responsePromise
 }
 
 async function blogByIdLoader({ params }: LoaderFunctionArgs): Promise<Blog> {
   const blogId = params.id;
   if (!blogId) {
-    throw new Response("Blog ID is required", { status: 400 }); // Throw a 400 error if the ID is missing
+    throw new Response("Blog ID is required", { status: 400 });
   }
 
   const response = await getBlogsById(blogId);

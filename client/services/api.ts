@@ -120,6 +120,7 @@ const registerUser = async (registerData: UserRegisterData): Promise<SubmitRespo
 }
 
 export {
+  fetchData,
   getBlogs,
   getBlogsById,
   submitBlogData,

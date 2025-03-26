@@ -16,6 +16,7 @@ const loginAction: ActionFunction = async ({ request }) => {
     if (response.statusCode === 200) {
       return redirect("/");
     } else {
+      console.log(response.message)
       return { error: response.message }
     }
   } catch (error) {
