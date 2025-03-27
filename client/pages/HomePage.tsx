@@ -1,7 +1,7 @@
 import Masonry from "react-masonry-css";
 import { lazy, Suspense, useEffect, useState } from "react";
 import gridImage from "../src/assets/images/grid-image.jpg";
-import BlogCardSkeleton from "../src/components/layout/BlogCardSkeleton";
+import { BlogCardSkeleton } from "../src/components/layout/Skeleton";
 import { useBlogData } from "../Provider/BlogDataProvider";
 import { BlogResponseType } from "../services/api";
 
@@ -35,7 +35,7 @@ const HomePage = () => {
         columnClassName="flex flex-col gap-4 md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-transform duration-300 ease-in-out"
       >
         {loading
-          ? <BlogCardSkeleton />
+          ? [...Array(4)].map((_, index) => (<BlogCardSkeleton key={index} />))
           : data?.map((item, idx) => (
             <Suspense fallback={<BlogCardSkeleton />} key={idx}>
               <BlogCardPreview
