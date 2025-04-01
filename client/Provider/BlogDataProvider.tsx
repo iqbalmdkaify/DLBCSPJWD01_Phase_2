@@ -1,7 +1,6 @@
 import { useContext, createContext, PropsWithChildren } from 'react'
 import { BlogResponseType, fetchData } from '../services/api';
 import { Blog, BlogFormSubmitData } from '../types/Global';
-import axios from 'axios';
 
 // export interface IBlogImage {
 //   _id: string;
@@ -30,6 +29,7 @@ type BlogContext = {
 
 const BlogDataContext = createContext<BlogContext | null>(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useBlogData = () => {
   const blogDataContext = useContext(BlogDataContext);
 

@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { createBrowserRouter, defer, LoaderFunctionArgs, RouterProvider } from 'react-router-dom'
-import { BlogResponseType, getBlogs, getBlogsById } from '../services/api';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { HomePage, AboutPage, LoginPage, NotFoundPage, BlogPage, CreateBlogPage, RegisterPage } from '../pages/main';
 import Layout from '../src/components/layout/Layout';
 import ProtectedRoute from './ProtectedRoute';
 import AuthProvider from '../context/AuthProvider';
-import { Blog } from '../types/Global';
 import BlogDataProvider from '../Provider/BlogDataProvider';
+import PublicRoute from './PublicRoute';
 
 const router = createBrowserRouter([
   {
@@ -27,9 +25,15 @@ const router = createBrowserRouter([
         element: <CreateBlogPage />,
       },
       {
-        path: '/blogs/:id',
-        element: <BlogPage />,
-      },
+        path: "/blogs",
+        element: <PublicRoute />,
+        children: [
+          {
+            path: ':id',
+            element: <BlogPage />,
+          },
+        ]
+      }
     ]
   },
   {
@@ -62,20 +66,3 @@ const AppRoutes: React.FC = () => (
 
 
 export default AppRoutes
-
-// Loader functions
-async function blogLoader() {
-  const responsePromise = getBlogs()
-  return responsePromise
-}
-
-async function blogByIdLoader({ params }: LoaderFunctionArgs): Promise<Blog> {
-  const blogId = params.id;
-  if (!blogId) {
-    throw new Response("Blog ID is required", { status: 400 });
-  }
-
-  const response = await getBlogsById(blogId);
-  console.log(response)
-  return response;
-}

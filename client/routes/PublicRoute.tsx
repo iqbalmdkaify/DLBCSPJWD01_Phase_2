@@ -1,21 +1,15 @@
-import React, { PropsWithChildren } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../Provider/AuthProvider';
+// import React, { PropsWithChildren } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 
-type TPublicRouteProps = PropsWithChildren;
-
-const PublicRoute = ({ children }: TPublicRouteProps) => {
+const PublicRoute = () => {
   const { isAuth } = useAuth();
 
-  if (isAuth) {
-    return <Navigate to='/' />
+  if (!isAuth) {
+    return <Navigate to="/auth/login" />
+  } else {
+    return <Outlet />
   }
-
-  return (
-    <>
-      {children}
-    </>
-  )
 }
 
 export default PublicRoute

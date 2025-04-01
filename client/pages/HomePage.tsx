@@ -4,6 +4,7 @@ import gridImage from "../src/assets/images/grid-image.jpg";
 import { BlogCardSkeleton } from "../src/components/layout/Skeleton";
 import { useBlogData } from "../Provider/BlogDataProvider";
 import { BlogResponseType } from "../services/api";
+import React from "react";
 
 const BlogCardPreview = lazy(() => import("../src/components/common/BlogCard"));
 

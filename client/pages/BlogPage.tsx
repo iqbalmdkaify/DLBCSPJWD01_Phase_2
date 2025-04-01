@@ -1,15 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Blog } from "../types/Global";
 import { useBlogData } from "../Provider/BlogDataProvider";
 import { BlogViewSkeleton } from "../src/components/layout/Skeleton";
-import { useAuth } from "../context/AuthProvider";
 const BlogPreview = lazy(() => import("../src/components/common/BlogView"));
 
 const BlogPage = () => {
   const { getBlogsById } = useBlogData();
-  const { isAuth } = useAuth();
-  const navigate = useNavigate();
 
   const { id } = useParams();
   const [data, setData] = useState<Blog | null>(null);
@@ -19,11 +16,6 @@ const BlogPage = () => {
     if (!id) {
       console.error("Blog ID is required");
       return;
-    }
-
-    if (!isAuth) {
-      navigate("/auth/login");
-      return
     }
 
     getBlogsById(id)

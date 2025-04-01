@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { createContext, PropsWithChildren, useContext, useEffect, useState, useCallback } from 'react';
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { UserInfo, UserLoginData, UserRegisterData } from '../types/Global';
 import axios from 'axios';
 
@@ -14,13 +13,12 @@ type AuthContext = {
 
 const AuthContext = createContext<AuthContext | null>(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const authContext = useContext(AuthContext);
-
   if (!authContext) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-
   return authContext;
 };
 
@@ -28,76 +26,60 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
-  const login = useCallback(
-    async (data: UserLoginData, action: () => void) => {
-      try {
-        const response = await axios({
-          withCredentials: true,
-          method: 'POST',
-          url: `${import.meta.env.VITE_ROOT_API}/auth/login`,
-          data
-        });
+  const login = async (data: UserLoginData, action: () => void) => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_ROOT_API}/auth/login`, data, {
+        withCredentials: true
+      });
 
-        if (response.status === 200) {
-          // await checkAuthStatus();
-          setIsAuth(true)
-          action();
-        }
-      } catch (error) {
-        setIsAuth(false)
-        console.log(error);
+      if (response.status === 200) {
+        await checkAuthStatus(); // Fetch user details after login
+        action();
       }
-    }, []
-  );
+    } catch (error) {
+      console.log(error);
+      setIsAuth(false);
+    }
+  };
 
-  const register = useCallback(
-    async (data: UserRegisterData, action: () => void) => {
-      try {
-        const response = await axios({
-          withCredentials: true,
-          method: 'POST',
-          url: `${import.meta.env.VITE_ROOT_API}/auth/register`,
-          data
-        });
+  const register = async (data: UserRegisterData, action: () => void) => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_ROOT_API}/auth/register`, data, {
+        withCredentials: true
+      });
 
-        if (response.status === 201) {
-          await checkAuthStatus();
-          action();
-        }
-      } catch (error) {
-        console.log(error);
+      if (response.status === 201) {
+        await checkAuthStatus();
+        action();
       }
-    }, []
-  );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const logout = async (action: () => void) => {
     try {
-      const response = await axios({
-        method: 'GET',
-        withCredentials: true,
-        url: `${import.meta.env.VITE_ROOT_API}/auth/logout`
+      const response = await axios.get(`${import.meta.env.VITE_ROOT_API}/auth/logout`, {
+        withCredentials: true
       });
-      console.log(response);
+
       if (response.status === 200) {
-        await checkAuthStatus();
+        setUser(null);
+        setIsAuth(false);
         action();
-      } else {
-        console.log("Internal server error");
       }
     } catch (err) {
       console.log(err);
     }
+  };
 
-  }
-
-  // Function to check authentication status
   const checkAuthStatus = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_ROOT_API}/api/protected`, {
         withCredentials: true,
       });
 
-      if (response.status === 200) {
+      if (response.status === 200 && response.data.user) {
         setUser({ username: response.data.user });
         setIsAuth(true);
       } else {
@@ -112,7 +94,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    checkAuthStatus(); // Check authentication status on mount
+    checkAuthStatus();
   }, []);
 
   return (
