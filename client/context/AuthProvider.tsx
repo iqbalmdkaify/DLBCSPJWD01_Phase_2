@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { UserInfo, UserLoginData, UserRegisterData } from '../types/Global';
 import axios from 'axios';
 
@@ -9,6 +9,7 @@ type AuthContext = {
   login: (data: UserLoginData, action: () => void) => Promise<void>;
   register: (data: UserRegisterData, action: () => void) => Promise<void>;
   logout: (action: () => void) => Promise<void>;
+  checkAuthStatus: () => void;
 };
 
 const AuthContext = createContext<AuthContext | null>(null);
@@ -92,12 +93,12 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
+  // useEffect(() => {
+  //   checkAuthStatus();
+  // }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, isAuth, login, register, logout }}>
+    <AuthContext.Provider value={{ user, setUser, isAuth, login, register, logout, checkAuthStatus }}>
       {children}
     </AuthContext.Provider>
   );

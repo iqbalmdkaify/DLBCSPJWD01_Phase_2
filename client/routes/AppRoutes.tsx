@@ -21,13 +21,13 @@ const router = createBrowserRouter([
         element: <AboutPage />
       },
       {
-        path: 'create-blog',
-        element: <CreateBlogPage />,
-      },
-      {
         path: "/blogs",
         element: <PublicRoute />,
         children: [
+          {
+            path: 'create-blog',
+            element: <CreateBlogPage />,
+          },
           {
             path: ':id',
             element: <BlogPage />,

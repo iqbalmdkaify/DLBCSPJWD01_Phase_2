@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthProvider";
 import NavItem from "../common/NavItem";
 import { useNavigate } from "react-router-dom";
-// import { UserInfo } from "../../../types/Global";
 
 const Navigation = () => {
 
@@ -24,12 +23,11 @@ const Navigation = () => {
         <p className="font-medium text-2xl lg:text-4xl">Blogify</p>
         <div className="md:flex items-center gap-5 text-base font-light text-dark">
 
-          {/* TODO: Username if authenticated */}
           <p className="md:pr-6 font-medium">{currentUser ? currentUser : ""}</p>
 
           <NavItem route="/">blog</NavItem>
           <NavItem route="/about">About Us</NavItem>
-          {isAuth && <NavItem route="/create-blog">Create Blog</NavItem>}
+          {isAuth && <NavItem route="/blogs/create-blog">Create Blog</NavItem>}
           <div className="md: pl-8">
             {isAuth ? <button onClick={() => logout(() => navigate("/"))}>logout</button> : <NavItem route="/auth/login">login</NavItem>}
           </div>
