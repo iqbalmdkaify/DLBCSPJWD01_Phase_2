@@ -5,12 +5,18 @@ const BASE_URL = import.meta.env.VITE_ROOT_API;
 
 export type BlogResponseType = {
   id: string,
-  heading: string;
+  heading: string,
   info: {
     author: string,
     createdAt: string
   },
   image: BlogImage[]
+}
+
+export type SubmitBlogResponse = {
+  success: boolean,
+  message?: string,
+  _id?: string
 }
 
 const fetchData = async <T>(url: string, options?: AxiosRequestConfig): Promise<T> => {

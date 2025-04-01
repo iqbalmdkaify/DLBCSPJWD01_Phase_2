@@ -1,5 +1,5 @@
 import { useContext, createContext, PropsWithChildren } from 'react'
-import { BlogResponseType, fetchData } from '../services/api';
+import { BlogResponseType, fetchData, SubmitBlogResponse } from '../services/api';
 import { Blog, BlogFormSubmitData } from '../types/Global';
 
 // export interface IBlogImage {
@@ -24,7 +24,7 @@ import { Blog, BlogFormSubmitData } from '../types/Global';
 type BlogContext = {
   getBlogs: () => Promise<BlogResponseType[] | []>;
   getBlogsById: (id: string) => Promise<Blog>;
-  submitBlogData: (blogData: BlogFormSubmitData) => void;
+  submitBlogData: (blogData: BlogFormSubmitData) => Promise<SubmitBlogResponse>;
 }
 
 const BlogDataContext = createContext<BlogContext | null>(null);
@@ -68,22 +68,19 @@ const BlogDataProvider = ({ children }: PropsWithChildren) => {
     });
   }
 
-  const submitBlogData = async (blogData: BlogFormSubmitData) => {
-    try {
-      const res = await fetchData<Blog>('/create-blog', {
-        method: 'POST',
-        data: blogData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      });
+  const submitBlogData = async (blogData: BlogFormSubmitData): Promise<SubmitBlogResponse> => {
 
-      console.log(res)
+    const response = await fetchData<SubmitBlogResponse>('/create-blog', {
+      method: 'POST',
+      data: blogData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      withCredentials: true,
+    });
 
-    } catch (err) {
-      throw new Error(`Error occured: ${err}`);
-    }
+    return response
+
   };
 
   return (

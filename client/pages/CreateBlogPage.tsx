@@ -3,11 +3,13 @@ import { useAuth } from '../context/AuthProvider';
 import { useBlogData } from '../Provider/BlogDataProvider';
 import Button from '../src/components/common/Button'
 import { BlogFormData } from '../types/Global';
+import { useNavigate } from 'react-router-dom';
 
 
 const CreateBlogPage = () => {
   const { user } = useAuth();
   const { submitBlogData } = useBlogData();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<BlogFormData>({
     title: '',
@@ -42,6 +44,14 @@ const CreateBlogPage = () => {
     submitBlogData({
       ...formData,
       author: user ? user.username : null,
+    }).then(res => {
+      if (res.success) {
+        navigate(`/blogs/${res._id}`)
+      } else {
+        throw new Error(`Form Error: ${res.message}`)
+      }
+    }).catch(err => {
+      console.log(err)
     })
   }
 

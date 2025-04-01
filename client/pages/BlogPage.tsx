@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Blog } from "../types/Global";
 import { useBlogData } from "../Provider/BlogDataProvider";
 import { BlogViewSkeleton } from "../src/components/layout/Skeleton";
+import React from "react";
 const BlogPreview = lazy(() => import("../src/components/common/BlogView"));
 
 const BlogPage = () => {
