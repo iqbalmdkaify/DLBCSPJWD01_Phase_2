@@ -43,7 +43,8 @@ const errorReducer = (state: ErrorStateType, action: ErrorActionType): ErrorStat
 
 type AuthFormProps = {
   buttonText: "Login" | "Register";
-  action: (data: Credential) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  action: (data: any) => void;
   initCredential: Credential;
 };
 
@@ -113,7 +114,19 @@ const AuthForm = ({ buttonText, action, initCredential }: AuthFormProps) => {
 
     // Optionally resetting errors before submitting
     dispatch({ type: 'RESET_ERRORS' });
-    action(credentials);
+
+    if (buttonText === "Register") {
+      action({
+        email: credentials.email,
+        username: credentials.username || "",
+        password: credentials.password
+      });
+    } else {
+      action({
+        email: credentials.email,
+        password: credentials.password,
+      });
+    }
   };
 
   return (
@@ -130,20 +143,12 @@ const AuthForm = ({ buttonText, action, initCredential }: AuthFormProps) => {
           <input type="text" name="username" onChange={handleChange} value={credentials.username} className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
         </div>
       )}
-      {buttonText === "Register" && (
-        <div>
-          <p>Enter your username here *</p>
-          {errorState.usernameError && <ErrorComponent message={errorState.usernameError} type="Warning" />}
-          <input type="text" name="username" onChange={handleChange} value={credentials.username} className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
-        </div>
-      )}
       <div>
         <p>Enter your password here *</p>
         {errorState.passwordError && <ErrorComponent message={errorState.passwordError} type="Warning" />}
         <input type="password" name="password" onChange={handleChange} value={credentials.password} className="w-full lg:mt-2 px-9 py-[1.20rem] outline-offset-2 focus:outline outline-[2px] outline-dark" />
       </div>
       <Button text={buttonText} action={handleSubmit} />
-      {/* <Button text={buttonText} /> */}
     </form>
   );
 };
