@@ -64,8 +64,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       });
 
       if (response.status === 200) {
-        setUser(null);
-        setIsAuth(false);
+        await checkAuthStatus()
         action();
       }
     } catch (err) {
