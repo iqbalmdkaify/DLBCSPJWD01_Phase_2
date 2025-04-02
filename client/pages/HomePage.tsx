@@ -30,7 +30,7 @@ const HomePage = () => {
       <Masonry
         breakpointCols={breakpoints}
         className="flex w-full md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-all duration-300 ease-in-out"
-        columnClassName="flex flex-col gap-4 md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-transform duration-300 ease-in-out"
+        columnClassName="flex flex-col gap-16 md:gap-9 lg:gap-16 xl:gap-[4.5rem] transition-transform duration-300 ease-in-out"
       >
         {loading
           ? [...Array(4)].map((_, index) => (<BlogCardSkeleton key={index} />))
