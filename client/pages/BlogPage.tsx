@@ -14,7 +14,7 @@ const BlogPage = () => {
 
   useEffect(() => {
     if (!id) {
-      console.error("Blog ID is required");
+      throw new Error("Blog ID is required");
       return;
     }
 
@@ -27,7 +27,7 @@ const BlogPage = () => {
   }, [id]);
 
   return (
-    <div className="lg:px-[22%]">
+    <div className="md:px-[10%] lg:px-[22%]">
       {loading ? <BlogViewSkeleton /> :
         <Suspense fallback={<BlogViewSkeleton />} >
           <BlogPreview data={data} />

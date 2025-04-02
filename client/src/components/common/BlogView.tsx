@@ -13,9 +13,9 @@ const BlogView = ({ data }: BlogViewProps) => {
       <p className="text-base text-center">
         {formatDate(data.createdAt)} • Written by {data.author}
       </p>
-      <div className="flex flex-col lg:gap-[5rem] lg:mt-10">
+      <div className="flex flex-col gap-4 sm:gap-[2rem] md:gap-[3rem] lg:gap-[5rem] mt-1 sm:mt-3 md:mt-6 lg:mt-10">
         {/* Blog Title */}
-        <p className="font-medium lg:text-7xl text-center lg:leading-snug">
+        <p className="font-medium text-xl sm:text-2xl md:text-4xl lg:text-7xl text-center leading-snug">
           {data.title}
         </p>
 
@@ -27,7 +27,7 @@ const BlogView = ({ data }: BlogViewProps) => {
         </div>
 
         {/* Blog content container */}
-        <p className="text-base font-light">{data.content}</p>
+        <p className="text-base font-light text-justify">{data.content}</p>
       </div>
     </>
   );
