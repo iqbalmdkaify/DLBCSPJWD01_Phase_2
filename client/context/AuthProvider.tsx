@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       });
 
       if (response.status === 201) {
-        await checkAuthStatus();
+        await checkAuthStatus(); // Fetch user details after creating account
         action();
       }
     } catch (error) {
@@ -92,10 +92,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       setIsAuth(false);
     }
   };
-
-  // useEffect(() => {
-  //   checkAuthStatus();
-  // }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser, isAuth, login, register, logout, checkAuthStatus }}>

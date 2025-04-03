@@ -2,25 +2,6 @@ import { useContext, createContext, PropsWithChildren } from 'react'
 import { BlogResponseType, fetchData, SubmitBlogResponse } from '../services/api';
 import { Blog, BlogFormSubmitData } from '../types/Global';
 
-// export interface IBlogImage {
-//   _id: string;
-//   contentType: string;
-//   filename: string;
-//   data: string;
-// }
-
-// export interface IBlogData {
-//   _id: string;
-//   title: string;
-//   content: string;
-//   blogImage: IBlogImage[];
-//   likes: number;
-//   author: string;
-//   createdAt: string;
-//   updatedAt: string;
-//   __v: number;
-// }
-
 type BlogContext = {
   getBlogs: () => Promise<BlogResponseType[] | []>;
   getBlogsById: (id: string) => Promise<Blog>;
