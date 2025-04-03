@@ -10,7 +10,6 @@ const getAllBlogs = async (req, res) => {
 };
 
 const createBlog = async (req, res) => {
-	console.log(req.body);
 	const { title, content, author } = req.body;
 	const image = req.file;
 	console.log(image);
@@ -25,11 +24,11 @@ const createBlog = async (req, res) => {
 		},
 	});
 	try {
-		await blog.save();
+		const savedBlog = await blog.save();
 
-		res.status(201).json("Blog created successfully");
+		res.status(201).json({ success: true, _id: savedBlog._id });
 	} catch (err) {
-		res.status(500).json("Unexpected Error");
+		res.status(500).json({ success: false, message: "Error saving the blog form" });
 	}
 };
 
