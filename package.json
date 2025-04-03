@@ -1,0 +1,14 @@
+{
+  "name": "dlbcspjwd01-phase-2",
+  "version": "1.0.0",
+  "description": "Phase 2 codebase for the course module DLBCSPJWD01. Includes client and server side directory",
+  "scripts": {
+     "dev": "bash -c 'npm run dev --prefix server & npm run dev --prefix client & wait'"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "dependencies": {},
+  "author": "Mohammad Kaify Iqbal",
+  "license": "MIT"
+}
