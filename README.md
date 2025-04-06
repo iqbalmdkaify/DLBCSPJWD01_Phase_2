@@ -1,5 +1,5 @@
 # DLBCSPJWD01 - Phase 2 Web Development Project
-This is the Phase 2 codebase for the course module **DLBCSPJWD01**. It includes both client-side and server-side directories, allowing you to run a full-stack web application.
+This is the Phase 2 codebase for the course module **DLBCSPJWD01**. It includes both client-side and server-side directories, allowing you to run a full-stack web application. Please note that Node is required to run this project.
 
 ## Author
 [@iqbalmdkaify](https://github.com/iqbalmdkaify) Mohammad Kaify Iqbal
