@@ -9,8 +9,10 @@ type BlogContext = {
   deleteBlog: (blog_id: string) => Promise<DeleteBlogResponse>;
 }
 
+// Create context to share blog-related data/functions
 const BlogDataContext = createContext<BlogContext | null>(null);
 
+// Custom hook to access blog context
 // eslint-disable-next-line react-refresh/only-export-components
 export const useBlogData = () => {
   const blogDataContext = useContext(BlogDataContext);
@@ -22,8 +24,10 @@ export const useBlogData = () => {
   return blogDataContext;
 }
 
+// Provider component to wrap around parts of the app that need blog data
 const BlogDataProvider = ({ children }: PropsWithChildren) => {
 
+  // Fetch all blogs and transform them for UI usage
   const getBlogs = async (): Promise<BlogResponseType[]> => {
     const res = await fetchData<Blog[]>('/blogs', {
       withCredentials: false,
@@ -44,14 +48,15 @@ const BlogDataProvider = ({ children }: PropsWithChildren) => {
     return modifiedResponse
   };
 
+  // Fetch a single blog by ID
   const getBlogsById = async (id: string): Promise<Blog> => {
     return await fetchData<Blog>(`/blogs/${id}`, {
       withCredentials: true,
     });
   }
 
+  // Submit blog data (including image) to backend
   const submitBlogData = async (blogData: BlogFormSubmitData): Promise<SubmitBlogResponse> => {
-
     const response = await fetchData<SubmitBlogResponse>('/create-blog', {
       method: 'POST',
       data: blogData,
@@ -62,9 +67,9 @@ const BlogDataProvider = ({ children }: PropsWithChildren) => {
     });
 
     return response
-
   };
 
+  // Delete a blog by ID
   const deleteBlog = async (blog_id: string): Promise<DeleteBlogResponse> => {
     const response = await fetchData<DeleteBlogResponse>(`/delete/${blog_id}`, {
       withCredentials: true

@@ -12,8 +12,10 @@ type AuthContext = {
   checkAuthStatus: () => void;
 };
 
+// Create authentication context
 const AuthContext = createContext<AuthContext | null>(null);
 
+// Custom hook to access AuthContext
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const authContext = useContext(AuthContext);
@@ -23,10 +25,12 @@ export const useAuth = () => {
   return authContext;
 };
 
+// AuthProvider component to wrap app with authentication state
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
+  // Log in user and check auth status on success
   const login = async (data: UserLoginData, action: () => void) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_ROOT_API}/auth/login`, data, {
@@ -35,7 +39,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
       if (response.status === 200) {
         await checkAuthStatus(); // Fetch user details after login
-        action();
+        action(); // Navigate or perform post-login action
       }
     } catch (error) {
       console.log(error);
@@ -43,6 +47,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  // Register new user and check auth status on success
   const register = async (data: UserRegisterData, action: () => void) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_ROOT_API}/auth/register`, data, {
@@ -50,14 +55,15 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       });
 
       if (response.status === 201) {
-        await checkAuthStatus(); // Fetch user details after creating account
-        action();
+        await checkAuthStatus(); // Fetch user details after account creation
+        action(); // Navigate or perform post-register action
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Log out user and reset auth state
   const logout = async (action: () => void) => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_ROOT_API}/auth/logout`, {
@@ -65,14 +71,15 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       });
 
       if (response.status === 200) {
-        await checkAuthStatus()
-        action();
+        await checkAuthStatus(); // Refresh state after logout
+        action(); // Navigate or perform post-logout action
       }
     } catch (err) {
       console.log(err);
     }
   };
 
+  // Check current user authentication status
   const checkAuthStatus = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_ROOT_API}/api/protected`, {
