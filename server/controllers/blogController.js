@@ -12,7 +12,6 @@ const getAllBlogs = async (req, res) => {
 const createBlog = async (req, res) => {
 	const { title, content, author } = req.body;
 	const image = req.file;
-	console.log(image);
 	const blog = await BlogModel({
 		title,
 		content,
@@ -45,7 +44,6 @@ const getSingleBlog = async (req, res) => {
 
 const deleteBlog = async (req, res) => {
 	const blog_id = req.params.id;
-	console.log("id: ", blog_id);
 
 	try {
 		const deletedBlog = await BlogModel.findByIdAndDelete(blog_id);

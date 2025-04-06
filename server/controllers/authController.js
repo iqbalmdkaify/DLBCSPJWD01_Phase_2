@@ -31,7 +31,6 @@ const register = async (req, res) => {
 		res.status(201).json("Created");
 	} catch (err) {
 		res.status(390).json("Invalid form fields");
-		console.log(err);
 	}
 };
 
