@@ -19,6 +19,10 @@ export type SubmitBlogResponse = {
   _id?: string
 }
 
+export type DeleteBlogResponse = {
+  message: string,
+}
+
 const fetchData = async <T>(url: string, options?: AxiosRequestConfig): Promise<T> => {
 
   try {

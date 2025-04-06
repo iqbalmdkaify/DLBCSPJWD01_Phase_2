@@ -1,11 +1,12 @@
 import { useContext, createContext, PropsWithChildren } from 'react'
-import { BlogResponseType, fetchData, SubmitBlogResponse } from '../services/api';
+import { BlogResponseType, DeleteBlogResponse, fetchData, SubmitBlogResponse } from '../services/api';
 import { Blog, BlogFormSubmitData } from '../types/Global';
 
 type BlogContext = {
   getBlogs: () => Promise<BlogResponseType[] | []>;
   getBlogsById: (id: string) => Promise<Blog>;
   submitBlogData: (blogData: BlogFormSubmitData) => Promise<SubmitBlogResponse>;
+  deleteBlog: (blog_id: string) => Promise<DeleteBlogResponse>;
 }
 
 const BlogDataContext = createContext<BlogContext | null>(null);
@@ -64,8 +65,16 @@ const BlogDataProvider = ({ children }: PropsWithChildren) => {
 
   };
 
+  const deleteBlog = async (blog_id: string): Promise<DeleteBlogResponse> => {
+    const response = await fetchData<DeleteBlogResponse>(`/delete/${blog_id}`, {
+      withCredentials: true
+    })
+
+    return response
+  }
+
   return (
-    <BlogDataContext.Provider value={{ getBlogs, getBlogsById, submitBlogData }}>
+    <BlogDataContext.Provider value={{ getBlogs, getBlogsById, submitBlogData, deleteBlog }}>
       {children}
     </BlogDataContext.Provider>
   )
